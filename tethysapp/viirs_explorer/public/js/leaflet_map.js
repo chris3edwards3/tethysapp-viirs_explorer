@@ -125,6 +125,7 @@ const createLayerControl = function () {
             'Additional layer': newAdditionalLayer,
         }, {
             collapsed: false,
+            position: 'topright',
         },
     ).addTo(mapObj);
 };
@@ -133,7 +134,7 @@ const createLayerControl = function () {
 
 // ~~~~~~~~~~~~~~~~~~~~ LOAD THE MAP AND INITIAL LAYERS ~~~~~~~~~~~~~~~~~~~~
 
-const mapObj = map();                               // used by legend and draw controls
+const mapObj = map();                               // used by floodLegend and draw controls
 const basemapObj = createBasemaps();                // used in the make controls function
 
 newAdditionalLayer = createAdditionalLayer();   // used in the make controls function

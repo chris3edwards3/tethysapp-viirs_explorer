@@ -4,8 +4,104 @@
 {% load tethys_gizmos %}
 {% load staticfiles %}
 
+{% block header_buttons %}
+  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
+    <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
+  </div>
+
+  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Info">
+    <a data-toggle="modal" data-target="#info-modal"><span class="glyphicon glyphicon-info-sign"></span></a>
+  </div>
+{% endblock %}
+
 {% block app_content %}
   <div id="map"></div>
+{% endblock %}
+
+{% block after_app_content %}
+{# Help Modal #}
+  <div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="help-modal-label">How To Use This App</h4>
+        </div>
+        <div class="modal-body">
+            <p>The map can show 3 layers at one time: the base map, one flood layer, and one additional layer.</p>
+            <p>Visualization Options:</p>
+            <ul>
+                <li>The user can turn the flood and additional layers on and off by clicking the check boxes.</li>
+                <li>The layer most recently turned on is the layer that is displayed on top.</li>
+                <li>The user may change the visible layer by clicking the drop-down and selecting the new layer.</li>
+                <li>The layer transparency may also be changed by adjusting the slider.</li>
+            </ul>
+            <p>Additional icons in the lower left corner give information about each layer group, including an explanation of the flood legend.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{# Info Modal #}
+  <div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="info-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="help-modal-label">Layer Information</h4>
+        </div>
+        <div class="modal-body">
+            <h5>Flood Layers</h5>
+            <p>
+                The <a href="https://www.ssec.wisc.edu/flood-map-demo/"
+                       target="_blank"
+                       rel="noopener noreferrer"> NOAA LEO/GEO Flood Mapping Product</a> is created in partnership with JPSS, George Mason University, and the Cooperative Institute for Meteorological Satellite Studies. These flood maps are based on optical satellite imagery. Each flood layer is updated daily, and the most recent map is shown here. The flood layers include:
+            </p>
+            <ul>
+                <li>VIIRS Composite: The composite products provide the best image after filtering out cloud cover. The maximum flood extent in the given time period is shown (5-days or 1-day). </li>
+                <li>Joint VIIRS/ABI: The ABI maps are more frequent but of a coarser resolution, and they only cover the Americas. This joint layer shows VIIRS wherever possible, but then fills in the gaps with ABI.</li>
+                <li>Joint VIIRS/AHI: The AHI is similar to ABI, but covering East Asia and Australasia. It is still experimental and has not been completely validated.</li>
+            </ul>
+
+            <h6>Flood Legend Explanation</h6>
+            <ul>
+                <li>MS: missing data (transparent)</li>
+                <li>LD: clear-sky land (brown)</li>
+                <li>SI: supra-snow/ice water or mixed ice & water (purple)</li>
+                <li>SN: snow cover (white)</li>
+                <li>IC: river/lake ice cover (cyan)</li>
+                <li>CL: cloud cover (grey)</li>
+                <li>CS: cloud shadow and terrain shadow (drak grey)</li>
+                <li>WA: open water (blue)</li>
+                <li>0-100: floodwater fractions - the amount of each pixel that is inundated (light cyan to red)</li>
+            </ul>
+
+            <h5>Additional Layers</h5>
+            <p>The purpose of the additional layers is to add context to the flood map. For example, floods have more impact when they occur in highly populated areas or in areas with vulnerable resources. To see the additional layer and the flood layer at the same time, increase the transparency of the layer on top. Additional layers include:</p>
+            <ul>
+                <li>Gridded Population of the World: population density (people per sq km)</li>
+                <li>Global Flood Hazard Frequency and Distribution: based on extreme flood events between 1985 and 2003</li>
+                <li>Global Flood Total Economic Loss Risk: based on spatially allocated Gross Domestic Product (GDP)</li>
+                <li>Global Flood Proportional Economic Loss Risk: based on GDP weighted by hazard frequency and distribution</li>
+            </ul>
+            <h6>Citations</h6>
+            <ul>
+                <li>Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Population Density, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). <a href="https://doi.org/10.7927/H49C6VHW" target="_blank" rel="noopener noreferrer">https://doi.org/10.7927/H49C6VHW</a>. Accessed 13 April 2020.</li>
+                <li>Center for Hazards and Risk Research - CHRR - Columbia University, and Center for International Earth Science Information Network - CIESIN - Columbia University. 2005. Global Flood Hazard Frequency and Distribution. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). <a href="https://doi.org/10.7927/H4668B3D" target="_blank" rel="noopener noreferrer">https://doi.org/10.7927/H4668B3D</a>. Accessed 13 April 2020.</li>
+                <li>Center for Hazards and Risk Research - CHRR - Columbia University, Center for International Earth Science Information Network - CIESIN - Columbia University, and International Bank for Reconstruction and Development - The World Bank. 2005. Global Flood Total Economic Loss Risk Deciles. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). <a href="https://doi.org/10.7927/H4T151KP" target="_blank" rel="noopener noreferrer">https://doi.org/10.7927/H4T151KP</a>. Accessed 13 April 2020.</li>
+                <li>Center for Hazards and Risk Research - CHRR - Columbia University, Center for International Earth Science Information Network - CIESIN - Columbia University, and International Bank for Reconstruction and Development - The World Bank. 2005. Global Flood Proportional Economic Loss Risk Deciles. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). <a href="https://doi.org/10.7927/H4XS5S9Q" target="_blank" rel="noopener noreferrer">https://doi.org/10.7927/H4XS5S9Q</a>. Accessed 13 April 2020.</li>
+                <li>Dilley, M., R.S. Chen, U. Deichmann, A.L. Lerner-Lam, M. Arnold, J. Agwe, P. Buys, O. Kjekstad, B. Lyon, and G. Yetman. 2005. Natural Disaster Hotspots: A Global Risk Analysis. Washington, D.C.: World Bank. <a href="https://doi.org/10.1596/0-8213-5930-4" target="_blank" rel="noopener noreferrer">https://doi.org/10.1596/0-8213-5930-4</a></li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block app_actions %}
