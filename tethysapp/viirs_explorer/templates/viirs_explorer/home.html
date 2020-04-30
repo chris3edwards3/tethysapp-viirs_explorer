@@ -1,0 +1,16 @@
+{% extends "viirs_explorer/base.html" %}
+
+{% load tethys_gizmos staticfiles %}
+{% load tethys_gizmos %}
+{% load staticfiles %}
+
+{% block app_content %}
+  <div id="map"></div>
+{% endblock %}
+
+{% block app_actions %}
+{% endblock %}
+
+{% block styles %}
+  {{ block.super}}
+{% endblock %}
