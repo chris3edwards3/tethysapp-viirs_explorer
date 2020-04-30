@@ -11,7 +11,7 @@ class ViirsExplorer(TethysAppBase):
     icon = 'viirs_explorer/images/sattelite_flood.png'
     package = 'viirs_explorer'
     root_url = 'viirs-explorer'
-    color = '#2c3e50'
+    color = '#40566b'
     description = ''
     tags = ''
     enable_feedback = False
